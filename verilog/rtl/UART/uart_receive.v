@@ -66,16 +66,17 @@ module uart_receive (
             clk_cnt <= 32'h0000_0000;
             if(rx == 1'b1) begin
               state <= WAIT_READ;
+              if(irq_en) begin
+                irq <= 1'b1;
+              end
             end
           end else begin
             clk_cnt <= clk_cnt + 32'h0000_0001;
           end
         end
         WAIT_READ : begin
-          if(irq_en) begin
-            irq <= 1'b1;
-          end
           if(read) begin
+            irq <= 1'b0;
             state <= WAIT;
           end
         end

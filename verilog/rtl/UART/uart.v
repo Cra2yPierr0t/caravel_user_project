@@ -20,7 +20,7 @@ module uart #(
   wire [31:0] clk_div;
   assign clk_div = clk_freq / BAUD_RATE;
 
-  uart_receive      rx(
+  uart_receive      receive(
     .rst        (rst    ),
     .clk        (clk    ),
     .clk_div    (clk_div),
@@ -31,7 +31,7 @@ module uart #(
     .rx_data    (rx_data)
   );
 
-  uart_transmission tx(
+  uart_transmission transmission(
     .rst        (rst    ),
     .clk        (clk    ),
     .clk_div    (clk_div),

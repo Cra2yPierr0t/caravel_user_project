@@ -28,7 +28,7 @@ module uart_receive (
       rx_index  <= 3'b000;
       irq       <= 1'b0;
       rx_data   <= 8'h0;
-    end else 
+    end else begin
       case(state)
         WAIT      : begin
           irq <= 1'b0;
@@ -49,7 +49,7 @@ module uart_receive (
         end
         GET_DATA  : begin
           // get the middle of wave
-          if(clk_cnt == (clk_div - 1) begin
+          if(clk_cnt == (clk_div - 1)) begin
             clk_cnt <= 32'h0000_0000;
             if(rx_index == 3'b111) begin
               state <= STOP_BIT;
@@ -62,7 +62,7 @@ module uart_receive (
         end
         STOP_BIT  : begin
           // check the middle of wave
-          if(clk_cnt == (clk_div - 1) begin
+          if(clk_cnt == (clk_div - 1)) begin
             clk_cnt <= 32'h0000_0000;
             if(rx == 1'b1) begin
               state <= WAIT_READ;
